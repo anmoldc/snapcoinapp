@@ -1,0 +1,46 @@
+page-login {
+    #loginPage{
+        background-color: #E53935;
+    }
+
+   .scroll-content{
+        align-content: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+   }
+
+   ion-card.card {
+       align-self: center;
+       margin-top: 5%;
+       background: #eeeeee;
+       margin-bottom: 15%;
+   }
+
+   #companyLogo{
+    align-self: center;
+    width: 60%;
+    height: 25%;
+   }
+
+    #username{
+        text-align: auto;
+        padding: 25px;
+    }
+
+    #password{
+        text-align: auto;
+        padding: 25px;
+    }
+
+
+    #remember{
+        margin-left: -10px;  
+    }
+
+    
+    
+
+    
+}

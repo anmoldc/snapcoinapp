@@ -1,0 +1,41 @@
+#navbar{
+    background-color: "lightred";
+}
+
+#column{
+    border: 0.1px solid rgb(134, 127, 127);
+    display: flex !important;
+    justify-content: center !important;
+    
+}
+
+
+.categories {
+    ion-card {
+      position: relative;
+      text-align: center;
+      width: 90% !important;
+      margin: 0 !important;
+      max-height: 60%;
+    }
+
+    
+    .card-title {
+      position: absolute;
+      top: 40%;
+      font-size: 2.0em;
+      width: 100%;
+      font-weight: bold;
+      color: #ffffff;
+    }
+  
+    .card-subtitle {
+      font-size: 1.0em;
+      position: absolute;
+      top: 52%;
+      width: 100%;
+      color: #fff;
+    }
+  
+  }
+  

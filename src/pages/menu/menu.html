@@ -1,0 +1,136 @@
+<!--
+  Author: Anmol Chugani
+  21/07/2018
+
+-->
+<ion-header>
+  <ion-navbar color="lightred" hideBackButton>
+    <ion-title id="title">Menu</ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col col-6 align-self-center>
+        </ion-col>
+        <ion-col col-3>
+          <ion-icon name="ios-cart" id="filtericon"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-navbar>
+
+  <ion-toolbar id="toolbar" color="lightred">
+    
+    <ion-searchbar [(ngModel)]="searchResult" (ionInput)="getSearchResult()" placeholder="Search.."></ion-searchbar>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="userPage">
+
+  <ion-grid id="itemGrid">
+    <ion-row wrap>
+      <ion-col col-6 col-lg-4 *ngFor="let product of products" id="productColumn">
+        <ion-card id="productCard">
+          <img src="{{product.image}}" />
+          <ion-row>
+            <ion-col text-lg-start col-lg-8 col-12>
+              <div>
+                <h2 id="itemName" style="font-size: 18px;">
+                  <strong>{{product.name}}</strong>
+                </h2>
+              </div>
+            </ion-col>
+            <ion-col>
+              <div>
+                <ion-badge id="priceBadge" color="light" style="font-size: 18px;"> $ {{product.price * product.quantity}} </ion-badge>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <p style="font-size: 20px;">
+            <ion-icon id="increase" color="lightred" style=" font-size: 30px;" name="md-remove-circle" (click)="decrement(product)"></ion-icon>
+            {{product.quantity}}
+            <ion-icon id="decrease" color="lightred" style=" font-size: 30px;" name="md-add-circle" (click)="increment(product)"></ion-icon>
+          </p>
+
+          <p>
+            <button ion-button color="lightred" full (click)="addToCart(product)">
+              <strong>Add to cart</strong>
+            </button>
+          </p>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<!--
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4 *ngFor="let product of products">
+          <ion-card id="card">
+            <img src="{{product.image}}" />
+            <h2 style="font-size: 18px;">{{product.name}}</h2>
+            <p>
+              <ion-icon id="increase" color="lightred" style=" font-size: 23px;" name="add-circle" (click)="increment(product)"></ion-icon>
+
+              {{product.quantity}}
+
+              <ion-icon id="decrease" color="lightred" style=" font-size: 23px;" name="remove-circle" (click)="decrement(product)"></ion-icon>
+            </p>
+            <ion-grid>
+              <ion-row>
+                <ion-icon id="addToCartIcon" style5=" font-size: 32px;" name="ios-cart" color="lightred" (click)="addToCart(product)"></ion-icon>
+                <ion-badge id="priceBadge" color="light" style="font-size: 18px;"> $ {{product.price * product.quantity}} </ion-badge>
+              </ion-row>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <button ion-button full (click)="logoutFunction()">Logout</button>
+  </ion-content>
+</ion-split-pane>
+
+    -->
+
+<!--
+    <ion-list>
+    <ion-item id = "item" color = "light" *ngFor="let product of products">
+      <ion-thumbnail item-start>
+        <img src={{product.image}}>
+      </ion-thumbnail>
+
+      <h2 style="font-size: 18px;">{{product.name}}</h2>
+
+
+      <p>
+        <ion-icon id="increase" color="LoginPageColor" style=" font-size: 23px;" name="add-circle" (click)="increment(product)"></ion-icon>
+
+        {{product.quantity}}
+
+        <ion-icon id="decrease" color="LoginPageColor" style=" font-size: 23px;" name="remove-circle" (click)="decrement(product)"></ion-icon>
+        <ion-icon id="addToCartIcon" style=" font-size: 32px;" name="ios-cart" color="LoginPageColor" (click)="addToCart(product)"></ion-icon>
+      </p>
+      <p>
+        <ion-badge id="priceBadge" color="light" style="font-size: 18px;"> $ {{product.price * product.quantity}} </ion-badge>
+      </p>
+    </ion-item>
+  </ion-list>
+
+  <button ion-button full (click)="logoutFunction()">Logout</button>
+</ion-content>
+
+  -->
+
+<!--  <ion-label>{{numberOfCartItems}}</ion-label> -->
+<!--    <ion-icon item-start name="qr-scanner" id="scanner" (click)="loadScanner()"></ion-icon> -->
+<!--  <div *ngIf="scannedCode" ng-init="showResult(scannedCode)"> </div>
+     
+      -->

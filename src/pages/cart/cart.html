@@ -1,0 +1,75 @@
+<!--
+  Author: Anmol Chugani
+-->
+<ion-header>
+
+  <ion-navbar color="lightred" hideBackButton>
+    <ion-title id="title">Cart</ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-2 col-lg-8>
+          <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="bg-style">
+
+  <ion-list>
+
+    <ion-item *ngFor="let item of getItemsAddedFromCart; let i = index">
+      <ion-thumbnail item-left>
+        <img src="{{item.image}}">
+      </ion-thumbnail>
+      <h2>{{item.name}}</h2>
+      <p>${{item.price}} x {{item.quantity}} = ${{item.price * item.quantity}}</p>
+
+      <button style=" font-size: 25px;" ion-button clear item-right (click)="removeItem(item)">
+        <ion-icon color="danger" name="trash"></ion-icon>
+      </button>
+
+      <ion-icon id="minus" (click)="decrementProduct(item.name)" color="lightred" style=" font-size: 25px;" name="md-remove-circle"x></ion-icon>
+      &nbsp; &nbsp;
+      <ion-icon id="plus" (click)="incrementProduct(item.name)" color="lightred" style=" font-size: 25px;" name="md-add-circle"></ion-icon>
+
+    </ion-item>
+
+    <!--
+<ion-item *ngIf="getItemsAddedFromCart?.length > 0">
+      <h2>Grand Total</h2>
+      <h2 item-right>${{cartService.cartAmount}}</h2>
+    </ion-item>
+
+    <ion-item *ngIf="getItemsAddedFromCart?.length > 0">
+      <h2 class="center">Cart is empty</h2>
+    </ion-item>
+
+    <button fixed ion-button icon-start block color="light" *ngIf="getItemsAddedFromCart?.length > 0" (click)="checkout()">
+      <ion-icon name="ios-cart"></ion-icon>
+      Checkout
+    </button>
+-->
+
+  </ion-list>
+
+  <ion-footer>
+    <ion-toolbar>
+      <ion-card color="light" id="checkoutcard">
+        <ion-card-header style="font-size: 20px;">
+          Total: $ {{totalPayment}}
+          <button (click)="loadCheckoutPage()" color="lightred" ion-button id="checkout">Checkout</button>
+        </ion-card-header>
+
+      </ion-card>
+    </ion-toolbar>
+  </ion-footer>
+
+
+
+</ion-content>

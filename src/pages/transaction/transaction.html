@@ -1,0 +1,68 @@
+<!--
+  Author: Anmol Chugani
+-->
+<ion-header>
+
+  <ion-navbar color="lightred" hideBackButton>
+    <ion-title id="title">Cart</ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-2 col-lg-8>
+          <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item style="width: 70%; height: 50%; margin-left: 15%">
+      <img src="/assets/imgs/checked.png" />
+      <p style="font-size: 12px; margin-left: 35px; font-weight: 500">Payment Sucessful</p> 
+  </ion-item>
+  
+
+  <ion-grid>
+    <ion-item>
+      <ion-row>
+        <ion-col col-6 align-self-start>
+          Total Amount:
+        </ion-col>
+
+        <ion-col col-6 align-self-end>
+           ${{totalPayment}}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+
+    <ion-item>
+      <ion-row>
+        <ion-col col-6 align-self-start>
+           Received:
+        </ion-col>
+
+        <ion-col col-6 align-self-end>
+           ${{amountReceived}}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+
+    <ion-item>
+      <ion-row>
+        <ion-col col-6 align-self-start>
+           Change:
+        </ion-col>
+
+        <ion-col col-6 align-self-end>
+           ${{change}}
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-grid>
+
+  <button (click)="returnToMenu()" color="lightred" style = "margin-left: 70px;" ion-button>New Transaction</button>
+</ion-content>

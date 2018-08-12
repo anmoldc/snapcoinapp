@@ -1,0 +1,53 @@
+<ion-header>
+
+  <ion-navbar color="lightred" hideBackButton>
+    <ion-title id="title">Promotions</ion-title>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-2 col-lg-8>
+          <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+
+
+</ion-header>
+
+<ion-content id="PromotionsPage">
+  <ion-card class="slides">
+    <ion-slides loop="true" autoplay="2000" pager>
+      <ion-slide *ngFor="let number of [1,2,3]">
+        <img src="./assets/imgs/Slider/{{number}}.jpg" />
+      </ion-slide>
+    </ion-slides>
+  </ion-card>
+
+  <ion-list>
+    <ion-item-divider color="lightred">Weekly Deals</ion-item-divider>
+    <!--
+      <ion-scroll scrollX="true" direction="x">
+      <ion-grid>
+        <ion-row >
+          <ion-col col-4 col-lg-4 *ngFor="let product of products">
+            <ion-card id="card">
+              <img src="{{product.image}}" />
+              <div>
+                <h2 style="font-size: 18px;">
+                  <strong>{{product.name}}</strong>
+                </h2>
+              </div>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-scroll>
+
+    -->
+    <button ion-button full (click)="printReceipt()">Print</button>
+    <button style="margin-top: 50%;"color="lightred" ion-button full (click)="logout()">Logout</button>
+    
+  </ion-list>
+</ion-content>
