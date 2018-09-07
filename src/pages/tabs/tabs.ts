@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {MenuPage} from '../menu/menu';
-import {CartPage} from '../cart/cart';
-import {CategoryPage} from '../category/category';
-import {PromotionsPage} from '../promotions/promotions';
-import {OrderPage} from '../order/order';
-
+import {DineInPage} from '../dinein/dinein';
+import {SettingsPage} from '../settings/settings';
 
 
 @Component({
@@ -21,10 +18,7 @@ export class TabsPage {
     console.log('ionViewDidLoad TabsPage');
   }
 
-  promotions = PromotionsPage;
-  category = CategoryPage;
-  menu = MenuPage;
-  cart = CartPage;
-  order = OrderPage;
-  
+  dineIn = DineInPage;
+  takeAway = MenuPage;
+  settings = SettingsPage;
 }

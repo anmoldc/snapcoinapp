@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
-
-
-//import { UserPage } from '../user/user';
 import { authenticate } from '../../providers/authenticate';
 import { TabsPage } from '../tabs/tabs';
 
@@ -22,13 +19,14 @@ import { TabsPage } from '../tabs/tabs';
 
 export class LoginPage {
 
-  responseData: any;
+  responseData:any;
   userData = { "username": "", "password": "" };
   endpoint = 'LoginServlet';
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public authenticate: authenticate, public toast: ToastController) {
+      
 
   }
 
@@ -36,12 +34,13 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
 
   }
+
 /*
   login() {
     this.navCtrl.push(TabsPage);
   }
 */
- 
+
   login() {
     this.authenticate.postAuthentication(this.userData, this.endpoint).then(result => {
       this.responseData = result;
@@ -54,14 +53,18 @@ export class LoginPage {
       });
       sucess.present(sucess);
       this.navCtrl.push(TabsPage);
+      this.userData.username = "";
+      this.userData.password = "";
     }, (err) => {
       let fail = this.toast.create({
-        message: 'Invalid Credentials',
+        message: 'Invalid Login!',
+        // message: 'err',
         duration: 2000,
         position: 'top'
       });
       fail.present(fail);
     });
   }
-
+  
+  
 }

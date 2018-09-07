@@ -1,6 +1,11 @@
 <!--
   Author: Anmol Chugani
 -->
+<!--<ion-row id="restaurantAddress">
+  <div text-center>
+    <h5>1 Sophia Road, Peace Center</h5>
+  </div>
+</ion-row>-->
 <ion-header>
 
 
@@ -20,12 +25,7 @@
   <ion-grid>
     <ion-row>
       <div id="restaurantName" text-center>
-        <h2>RESTAURANT XYZ</h2>
-      </div>
-    </ion-row>
-    <ion-row id="restaurantAddress">
-      <div text-center>
-        <h5>1 Sophia Road, Peace Center</h5>
+        <h2>{{this.companyName}}</h2>
       </div>
     </ion-row>
     <p>--------------------------------------------------------------------------------</p>
@@ -67,21 +67,20 @@
   </ion-grid>
 
 
-  <ion-list radio-group>
-    <ion-list-header>
-      Payment
-    </ion-list-header>
-  
-    <ion-item>
-      <ion-label>Pay by Cash</ion-label>
-      <ion-radio checked="true" value="cash"></ion-radio>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label>Pay by Card</ion-label>
-      <ion-radio disabled="true" value="card"></ion-radio>
-    </ion-item>
-  </ion-list>  
+  <ion-item>
+    <ion-label>Pay by Cash</ion-label>
+    <ion-radio (ionSelect)="cash" checked="true" value="cash"></ion-radio>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Pay by Card</ion-label>
+    <ion-radio (ionSelect)="card" value="card"></ion-radio>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Pay by SnapCash</ion-label>
+    <ion-radio (ionSelect)="snapcash" value="snapcash"></ion-radio>
+  </ion-item>
 
   <button ion-button (click)="payment()" color="light" full>Pay</button>
 </ion-content>

@@ -4,19 +4,22 @@ page-login {
     }
 
    .scroll-content{
-        align-content: center;
+        align-content: auto;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        justify-content: auto;
         text-align: center;
+        padding-bottom: 0 !important;
    }
 
    ion-card.card {
        align-self: center;
-       margin-top: 5%;
-       background: #eeeeee;
-       margin-bottom: 15%;
+       margin-top: 10%;
+       background: #E53935;
    }
+
+    .list{
+        background: #E53935;
+    }
 
    #companyLogo{
     align-self: center;
@@ -39,7 +42,11 @@ page-login {
         margin-left: -10px;  
     }
 
-    
+    .img{
+        left: 0;
+        right: 0;
+        margin:0 auto;    
+    }
     
 
     

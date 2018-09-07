@@ -1,11 +1,16 @@
 
 #userPage{
     background-color: #ffffff;
-    padding: 0%;
 }
 
 #title{
-    margin-top: 1%;
+    text-align:center;
+}
+
+
+#carticon{
+    font-size: 28px;      
+    color:  #ffffff;
 }
 
 #filtericon {
@@ -19,32 +24,51 @@
     margin-right: 18%;  
 }
 
-#item{
-    padding: 10px;
-}
-
-#list{
-    padding: 10px;
-}
-
 
 #increase{
-    margin-left: 25%;
-    padding-right: 7%;
+    margin-left: 0%;
+    padding-right: 1%;
 }
 
 #decrease{
-    padding-left: 7%;
+    margin-left: 0%;
+    padding-left: 1%;
 }
 
 #productColumn{
-    border: 0.1px solid rgb(134, 127, 127);
+    //border: 0.1px solid rgb(134, 127, 127);
     display: flex;
 }
 
+
 #productCard{
+    box-shadow: none;
     margin: 0%;
     width: 100%;
+}
+
+#category{
+    display: inline-block;
+    width: 75px;
+}
+
+
+ion-scroll { 
+    height: auto;
+        .scroll-content {
+        height: 120px;
+    }    
+}
+
+#itemGrid{
+    padding: 0% !important;
+    margin: 0% !important;
+}
+
+
+#addToCartButton{
+    width: 100px;
+    height: 25px;
 }
 
 

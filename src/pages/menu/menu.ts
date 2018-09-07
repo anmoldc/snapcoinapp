@@ -6,7 +6,7 @@ import { requestdata } from '../../providers/requestdata';
 import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { ToastController } from 'ionic-angular';
-
+//this one is mine
 /**
  * Generated class for the UserPage page.
  *
@@ -20,13 +20,16 @@ import { ToastController } from 'ionic-angular';
   templateUrl: 'menu.html',
 })
 export class MenuPage {
-
+  endpoint = "MenuRequestServlet";
+  outletName: any;
+  companyName:any;
   results: {};
-  scannedCode = null;
 
   //product items
   itemsAddedToCart = [];
-  
+  responseData: any;
+  inputList = [];
+  categories = [];
 
 
   //Query for products
@@ -37,35 +40,88 @@ export class MenuPage {
   products: any;
   productsList: any;
   productSearch: any;
- 
 
   //search feature 
   searchResult: String = '';
   possibleSearchResults: any;
 
-  ionViewDidLoad() {
-    
-
-  }
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams, private storage: Storage,  public toast: ToastController,
-    public getReq:requestdata) {
+    public navParams: NavParams, private storage: Storage, public toast: ToastController,
+    public getReq: requestdata) {
+    
+    this.outletName = this.retrieveOutletName();
+    this.companyName = this.retrieveCompanyName();
+    this.getReq.getData(this.endpoint, this.outletName, this.companyName).then(result => {
+      this.responseData = result;
+      console.log(this.responseData);
+      var response = JSON.stringify(result);
+      var obj = JSON.parse(response);
+      
+      //to pull out menu items and display
+      var body = obj.menu;
+      for (var i = 0; i < body.length; i++) {
+        var resultItem = body[i];
+        var cartItem: any = {
+          id: i + 1,
+          image: resultItem.url,
+          name: resultItem.name,
+          price: resultItem.price,
+          quantity: 1
+        }
+        this.inputList.push(cartItem);
+      }
+
+      // hardcoded all category
+      var categoryArray = obj.categoryList;
+      var all: any = {
+        image: 'assets/imgs/productimages/cake.jpg',
+        name: "All",
+      }
+      this.categories.push(all);
+      //to pull out categoryList items and display 
+      for (var i = 0; i < categoryArray.length; i++) {
+        var resultItem = categoryArray[i];
+        var cartItem: any = {
+          image: 'assets/imgs/productimages/cake.jpg',
+          name: resultItem,
+        }
+        this.categories.push(cartItem);
+      }
+      
+
+      this.products = [...this.inputList];
+      this.productSearch = [...this.inputList];
+    }, (err) => {
+      console.log(err);
+    });
+
+    
+    //console.log(this.inputList);
     // array initialised when the app is run 
+    
+  /*  
     this.productsList = [
-      { id: 1, image: 'assets/imgs/productimages/cake.jpg', name: 'Chocolate Cake', price: 3.00, quantity: 1 },
-      { id: 2, image: 'assets/imgs/productimages/food.jpg', name: 'Mexican rolls', price: 6.00, quantity: 1 },
-      { id: 3, image: 'assets/imgs/productimages/orange.jpg', name: 'Orange', price: 2.00, quantity: 1 },
-      { id: 4, image: 'assets/imgs/productimages/taco.jpg', name: 'Mexican Taco', price: 5.50, quantity: 1 },
-      { id: 5, image: 'assets/imgs/productimages/cornflakes.jpg', name: 'CornFlakes', price: 5, quantity: 1 },
-      { id: 6, image: 'assets/imgs/productimages/sprite.jpg', name: 'Sprite', price: 1, quantity: 1 }
+      { id: 1, image: 'assets/imgs/productimages/cake.jpg', desc:"chocolate cake with hazelnut", name: 'Chocolate Cake', price: 3.00, quantity: 1 },
+      { id: 2, image: 'assets/imgs/productimages/food.jpg',  desc:"mexican rolls with chilli sauce", name: 'Mexican rolls', price: 6.00, quantity: 1 },
+      { id: 3, image: 'assets/imgs/productimages/orange.jpg',  desc:"fresh oranges (2/set)", name: 'Orange', price: 2.00, quantity: 1 },
+      { id: 4, image: 'assets/imgs/productimages/taco.jpg',  desc:"served with sauce and baked rice", name: 'Mexican Taco', price: 5.50, quantity: 1 },
+      { id: 5, image: 'assets/imgs/productimages/cornflakes.jpg',  desc:"corn on a cob with butter", name: 'CornFlakes', price: 5, quantity: 1 },
+      { id: 6, image: 'assets/imgs/productimages/sprite.jpg',  desc:"fresh drink", name: 'Sprite', price: 1, quantity: 1 }
     ];
-    this.products = [...this.productsList];
-    this.productSearch = [...this.productsList];
+
+    this.categories = [
+      {image:'assets/imgs/productimages/cake.jpg',name:'Appetizers'},
+      {image:'assets/imgs/productimages/cake.jpg',name:'Main Course'},
+      {image:'assets/imgs/productimages/cake.jpg',name:'Salads'},
+      {image:'assets/imgs/productimages/cake.jpg',name:'Salads'}
+    ];
+
+   */ 
+    
   }
 
   ionViewWillEnter() {
-    
     this.storage.get('CartItems')
       .then(item => {
         if (item && item.length) {
@@ -79,11 +135,11 @@ export class MenuPage {
   // search feature filters items 
   filterItems(searchResult) {
     if (searchResult) {
-      return this.products = this.productSearch.filter((product) => {
+      return this.inputList = this.productSearch.filter((product) => {
         return product.name.toLowerCase().indexOf(searchResult.toLowerCase()) > -1;
       });
     } else {
-      return this.products = this.productsList;
+      return this.inputList = this.productSearch;
     }
   }
 
@@ -100,9 +156,10 @@ export class MenuPage {
       image: product.image,
       name: product.name,
       price: product.price,
-      quantity: product.quantity
+      quantity: product.quantity,
+      description: product.desc
     }
-    var check =  0;
+    var check = 0;
     for (var i = 0; i < this.itemsAddedToCart.length; i++) {
       var item = this.itemsAddedToCart[i];
       var itemName = item.name;
@@ -118,24 +175,29 @@ export class MenuPage {
         this.itemsAddedToCart.splice(this.index, 1, item);
         let sucess = this.toast.create({
           message: 'Item added',
-          duration: 2000,
+          duration: 1000,
           position: 'top'
         });
         sucess.present(sucess);
-      } 
+      }
     }
-    if(check==0) {
+    if (check == 0) {
       this.itemsAddedToCart.push(cartItem);
       let sucess = this.toast.create({
         message: 'item added',
-        duration: 2000,
+        duration: 1000,
         position: 'top'
       });
       sucess.present(sucess);
     }
     console.log(this.itemsAddedToCart);
     this.storage.set('CartItems', this.itemsAddedToCart);
-    
+
+  }
+
+  loadCheckout() {
+    console.log("pushed");
+    this.navCtrl.push(CartPage);
   }
 
 
@@ -163,32 +225,6 @@ export class MenuPage {
     this.navCtrl.push(LoginPage);
   }
 
-  // methods for qr scanner
-  /*
-    async loadScanner() {
-      this.results = await this.barcode.scan();
-      alert(this.results);
-      
-    }
-  */
-  /*
-   loadScanner() {
-     this.barcodeScanner.scan().then(barcodeData => {
-       this.scannedCode = barcodeData.text;
-     }, (err) => {
-       console.log('Error: ', err);
-     });
-   }
- */
-  getItems(event): void {
-
-  }
-
-  // to implement when click on item to view more details
-  viewProductDetails(product) {
-
-  }
-
   resetFilteredData() {
     this.filteredList = JSON.parse(JSON.stringify(this.originalList));
   }
@@ -204,6 +240,31 @@ export class MenuPage {
       }
     });
   }
+
+  retrieveOutletName() {
+    var body: any;
+    var outlet: any;
+    var loginResponse = localStorage.getItem('userData');
+    var obj = JSON.parse(loginResponse);
+    body = JSON.parse(obj._body);
+    outlet = body.outletName;
+    return outlet;
+  }
+
+  retrieveCompanyName() {
+    var body: any;
+    var companyName: any;
+    var loginResponse = localStorage.getItem('userData');
+    var obj = JSON.parse(loginResponse);
+    body = JSON.parse(obj._body);
+    companyName = body.companyName;
+    return companyName;
+  }
+
+  checkoutFunction() {
+    this.navCtrl.push(CartPage);
+  }
+
 }
 
 

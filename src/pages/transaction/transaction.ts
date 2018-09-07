@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Storage} from '@ionic/storage';
 import {CartPage} from '../cart/cart';
 import { PromotionsPage } from '../promotions/promotions';
+import { MenuPage } from '../menu/menu';
 /*
  * Generated class for the TransactionPage page.
  *
@@ -43,7 +44,7 @@ export class TransactionPage {
 
   returnToMenu() {
     this.storage.clear();
-    this.navCtrl.setRoot(CartPage);
+    this.navCtrl.setRoot(MenuPage);
   }
 
 

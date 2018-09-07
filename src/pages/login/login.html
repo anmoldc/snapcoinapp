@@ -10,15 +10,18 @@
 
 <ion-content padding id = "loginPage">
   
-  <!--<ion-img class="img" src="assets/imgs/snapcoin.png"></ion-img> -->
   
-<img src = "../../assets/imgs/snapcoin.png" id="companyLogo"/>
+  <!--<img src = "../../assets/imgs/snapcoin.png" id="companyLogo"/>-->
+  <!--<ion-img class="img" src="assets/imgs/snapcoin.png"></ion-img>-->
+  
 
-  
-  <ion-card id="card">
-  <ion-card-content>
-    <ion-list>
-      <ion-item>
+  <ion-card id="card"> 
+    <ion-card-content>
+      <ion-list>          
+        <ion-item class="list">
+          <img src = "../../assets/imgs/snapcoin.png" id="companyLogo" class = "img"/>      
+        </ion-item>
+        <ion-item>
         <ion-label floating>Username</ion-label>
         <ion-input [(ngModel)]="userData.username" type = "text" name="username"></ion-input>
       </ion-item>
@@ -29,10 +32,10 @@
       </ion-item>
       
         <button ion-button full type="submit" id="loginbutton" (click)="login()">Login</button>
-        
+      <!--  
       <p><a>Forgot Password?</a></p>
         <button ion-button  full color="light">Reset Password</button> 
-    
+      -->
     </ion-list>
   </ion-card-content>
   </ion-card>

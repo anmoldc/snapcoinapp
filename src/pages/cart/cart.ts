@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { CheckoutPage } from '../checkout/checkout';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the ShoppingcartPage page.
@@ -18,21 +19,13 @@ import { CheckoutPage } from '../checkout/checkout';
 export class CartPage {
 
   getItemsAddedFromCart = [];
-
-  products: any;
   receiptItems = [];
   totalPayment = 0;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage) {
-    this.products = [
-      { Id: 1, image: 'assets/imgs/productimages/cake.jpg', name: 'Chocolate Cake', price: 3.00, quantity: 1 },
-      { Id: 2, image: 'assets/imgs/productimages/food.jpg', name: 'Mexican rolls', price: 6.00, quantity: 1 },
-      { Id: 3, image: 'assets/imgs/productimages/orange.jpg', name: 'Orange', price: 2.00, quantity: 1 },
-      { Id: 4, image: 'assets/imgs/productimages/taco.jpg', name: 'Mexican Taco', price: 5.50, quantity: 1 },
-      { Id: 5, image: 'assets/imgs/productimages/cornflakes.jpg', name: 'CornFlakes', price: 5, quantity: 1 },
-      { Id: 6, image: 'assets/imgs/productimages/sprite.jpg', name: 'Sprite', price: 1, quantity: 1 }
-    ];
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+    private storage: Storage,public alertCtrl: AlertController) {
+    
   }
 
 
@@ -95,7 +88,16 @@ export class CartPage {
   }
 
   loadCheckoutPage() {
-    this.navCtrl.push(CheckoutPage, { items: this.receiptItems, total: this.totalPayment });
+    if(this.getItemsAddedFromCart.length == 0 ){
+      const prompt = this.alertCtrl.create({
+        title: 'No Items Added',
+        message: "Please add items into cart before checkout!",
+      });
+      prompt.present();
+    } else {
+      this.navCtrl.push(CheckoutPage, { items: this.receiptItems, total: this.totalPayment });
+    }
   }
 
+  
 }  

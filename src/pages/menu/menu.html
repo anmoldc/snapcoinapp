@@ -1,68 +1,130 @@
 <!--
   Author: Anmol Chugani
   21/07/2018
-
+  
 -->
+<!--<ion-buttons right>
+      <ion-icon name="ios-cart-outline" style="position:relative; font-size:3em;">
+          <span style="position:absolute; top:-10px; left:25px; font-size:20px !important">{{itemsAddedToCart.length}}</span>
+      </ion-icon>        
+    </ion-buttons>-->
 <ion-header>
-  <ion-navbar color="lightred" hideBackButton>
+  <ion-navbar color="lightred">
     <ion-title id="title">Menu</ion-title>
-    <ion-grid>
-      <ion-row>
-        <ion-col col-3>
-          <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-          </button>
-        </ion-col>
-        <ion-col col-6 align-self-center>
-        </ion-col>
-        <ion-col col-3>
-          <ion-icon name="ios-cart" id="filtericon"></ion-icon>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="loadCheckout()" color="light">
+        Next
+        <ion-icon name="ios-arrow-forward-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons start>
+      <button ion-button icon-only (click)="backToTables()" color="light">
+        <ion-icon name="ios-arrow-back-outline"></ion-icon>Back
+      </button>
+    </ion-buttons>
 
   </ion-navbar>
-
-  <ion-toolbar id="toolbar" color="lightred">
-    
+  <!--
+    <ion-toolbar id="toolbar" color="lightred">
     <ion-searchbar [(ngModel)]="searchResult" (ionInput)="getSearchResult()" placeholder="Search.."></ion-searchbar>
-    
   </ion-toolbar>
+-->
 </ion-header>
 
 <ion-content id="userPage">
 
+  <!--
+  <ion-scroll scrollX="true" style="white-space:nowrap; height: 100px;">
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let category of categories">
+          <ion-card id="categoryCard">
+            <ion-card-content>
+              <img src="{{category.image}}" />
+              <ion-row>
+                <ion-col col-lg-12 col-12>
+                  <div>
+                    <h2 id="itemName" style="font-size: 10px;" text-center>
+                      <strong> {{category.name}}</strong>
+                    </h2>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-scroll>
+-->
+
+
+  <ion-scroll scrollX="true" style="white-space:nowrap;">
+
+    <ion-card *ngFor="let category of categories let i = index" id="category">
+      <img src="{{category.image}}">
+      <ion-row>
+        <ion-col col-lg-12 col-12>
+          <div>
+            <h2 id="itemName" style="font-size: 10px;" text-center>
+              <strong>{{category.name}}</strong>
+            </h2>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-scroll>
+
   <ion-grid id="itemGrid">
     <ion-row wrap>
-      <ion-col col-6 col-lg-4 *ngFor="let product of products" id="productColumn">
+      <ion-col col-4 col-lg-4 *ngFor="let product of inputList" id="productColumn">
         <ion-card id="productCard">
           <img src="{{product.image}}" />
           <ion-row>
-            <ion-col text-lg-start col-lg-8 col-12>
+            <ion-col col-lg-12 col-12>
               <div>
-                <h2 id="itemName" style="font-size: 18px;">
-                  <strong>{{product.name}}</strong>
+                <h2 id="itemName" style="font-size: 10px;" text-center>
+                  <strong> {{product.name}}</strong>
                 </h2>
-              </div>
-            </ion-col>
-            <ion-col>
-              <div>
-                <ion-badge id="priceBadge" color="light" style="font-size: 18px;"> $ {{product.price * product.quantity}} </ion-badge>
               </div>
             </ion-col>
           </ion-row>
 
-          <p style="font-size: 20px;">
-            <ion-icon id="increase" color="lightred" style=" font-size: 30px;" name="md-remove-circle" (click)="decrement(product)"></ion-icon>
-            {{product.quantity}}
-            <ion-icon id="decrease" color="lightred" style=" font-size: 30px;" name="md-add-circle" (click)="increment(product)"></ion-icon>
-          </p>
+          <ion-row wrap>
+            <ion-col col-lg-12 col-12>
+              <div>
+                <h2 id="itemName" style="font-size: 10px;" text-center>
+                  <strong> {{product.desc}}</strong>
+                </h2>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row wrap>
+            <ion-col col-lg-7 col-7>
+              <div>
+                <p style="font-size: 12px;">
+                  <ion-icon id="increase" color="lightred" style=" font-size: 18px;" name="md-remove-circle" (click)="decrement(product)"></ion-icon>
+                  {{product.quantity}}
+                  <ion-icon id="decrease" color="lightred" style=" font-size: 18px;" name="md-add-circle" (click)="increment(product)"></ion-icon>
+                </p>
+              </div>
+            </ion-col>
+
+            <ion-col col-lg-5 col-5>
+              <div>
+                <ion-badge center id="priceBadge" color="light" style="font-size: 12px;"> $ {{product.price}} </ion-badge>
+              </div>
+            </ion-col>
+          </ion-row>
 
           <p>
-            <button ion-button color="lightred" full (click)="addToCart(product)">
-              <strong>Add to cart</strong>
+            <button ion-button color="lightred" full (click)="addToCart(product)" id="addToCartButton">
+              Add to cart
             </button>
           </p>
+
         </ion-card>
       </ion-col>
     </ion-row>

@@ -13,6 +13,7 @@ export class printer {
     open = false;
     print() {
         this.serial.requestPermission().then(() => {
+            console.log("permission granted");
             this.serial.open({
                 baudRate: 9800,
                 dataBits: 4,
@@ -24,10 +25,20 @@ export class printer {
             }).then(() => {
                 this.open = true;
                 console.log('It will write the data now');
-                this.serial.write('this is a trial message');
+                this.serial.write('Thank you for shopping, see you again!');
+                let mno = this.alertCtrl.create({
+                    title: "Print SUCCESS!",
+                    buttons: ['Dismiss']
+                });
+                mno.present();
             });
-        }).catch((error: any) => {
-
+        }).catch((errx: any) => {
+            console.log("WRITE FAILED", errx);
+            let mno = this.alertCtrl.create({
+                title: "ERROR: " + errx,
+                buttons: ['Dismiss']
+            });
+            mno.present();
         });
     }
 

@@ -9,12 +9,18 @@ import {printer} from '../../providers/printer';
  * Ionic pages and navigation.
  */
 
+
 @IonicPage()
 @Component({
   selector: 'page-promotions',
   templateUrl: 'promotions.html',
 })
+
+
+
 export class PromotionsPage {
+
+  
 
   products = [
     { image: 'assets/imgs/productimages/cake.jpg', name: 'Chocolate Cake', price: 3.00, quantity: 1 },
@@ -35,9 +41,11 @@ export class PromotionsPage {
       { image: 'assets/imgs/productimages/taco.jpg', name: 'Mexican Taco', price: 5.50, quantity: 1 },
       { image: 'assets/imgs/productimages/cornflakes.jpg', name: 'CornFlakes', price: 5, quantity: 1 },
       { image: 'assets/imgs/productimages/sprite.jpg', name: 'Sprite', price: 1, quantity: 1 }  
-    ];
 
+    ];
   }
+
+  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PromotionsPage');
@@ -50,7 +58,8 @@ export class PromotionsPage {
   }
 
   printReceipt() {
-    this.printService.print();
+    //this.retriveUsername();
+    //this.printService.print();
   }
 
 }
